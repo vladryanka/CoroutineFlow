@@ -1,16 +1,15 @@
-package com.smorzhok.coroutineflow
-
+package com.smorzhok.coroutineflow.lesson2
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import com.smorzhok.coroutineflow.databinding.ActivityUsers2Binding
+import com.smorzhok.coroutineflow.databinding.ActivityUsersBinding
 
-class Users2Activity : AppCompatActivity() {
+class UsersActivity : AppCompatActivity() {
 
     private val binding by lazy {
-        ActivityUsers2Binding.inflate(layoutInflater)
+        ActivityUsersBinding.inflate(layoutInflater)
     }
 
     private val viewModel by lazy {
@@ -20,6 +19,11 @@ class Users2Activity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        setupListeners()
+        observeViewModel()
+    }
+
+    private fun setupListeners() {
         binding.buttonAddUser.setOnClickListener {
             binding.editTextUsername.text.toString()
                 .trim()
@@ -28,6 +32,12 @@ class Users2Activity : AppCompatActivity() {
                     viewModel.addUser(it)
                 }
         }
+        binding.buttonNextScreen.setOnClickListener {
+            startActivity(Users2Activity.newIntent(this))
+        }
+    }
+
+    private fun observeViewModel() {
         viewModel.users.observe(this) {
             binding.textViewUsers.text = it.joinToString()
         }
@@ -35,6 +45,6 @@ class Users2Activity : AppCompatActivity() {
 
     companion object {
 
-        fun newIntent(context: Context) = Intent(context, Users2Activity::class.java)
+        fun newIntent(context: Context) = Intent(context, UsersActivity::class.java)
     }
 }

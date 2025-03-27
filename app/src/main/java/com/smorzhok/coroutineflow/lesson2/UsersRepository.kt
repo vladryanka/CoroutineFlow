@@ -1,4 +1,4 @@
-package com.smorzhok.coroutineflow
+package com.smorzhok.coroutineflow.lesson2
 
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow

@@ -1,4 +1,4 @@
-package com.smorzhok.coroutineflow
+package com.smorzhok.coroutineflow.lesson2
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -19,13 +19,13 @@ class UsersViewModel : ViewModel() {
 
     fun addUser(user: String) {
         viewModelScope.launch {
-            repository.addUser(user)
+            UsersRepository.addUser(user)
         }
     }
 
     private fun loadUsers() {
         viewModelScope.launch {
-            repository.loadUsers()
+            UsersRepository.loadUsers()
                 .collect {
                     _users.value = it
                 }
