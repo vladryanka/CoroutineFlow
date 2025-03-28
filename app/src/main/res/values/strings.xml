@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">CoroutineFlow</string>
+    <string name="currency_price">$%s</string>
+    <string name="crypto_activity">Crypto Activity</string>
 </resources>
