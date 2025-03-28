@@ -11,5 +11,13 @@
         android:id="@+id/button_users_activity"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Users Activity" />
+        android:layout_marginTop="64dp"
+        android:text="Users activity" />
+
+    <Button
+        android:id="@+id/button_crypto_activity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/crypto_activity" />
+
 </LinearLayout>
