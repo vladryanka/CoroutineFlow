@@ -1,21 +1,22 @@
 package com.smorzhok.coroutineflow.lesson4
 
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlin.random.Random
 
 object CryptoRepository {
 
     private val currencyNames = listOf("BTC", "ETH", "USDT", "BNB", "USDC")
     private val currencyList = mutableListOf<Currency>()
+    private val _currencyListFlow = MutableSharedFlow<List<Currency>>()
+    val currencyListFlow = _currencyListFlow.asSharedFlow()
 
-    fun getCurrencyList(): Flow<List<Currency>> = flow {
+    suspend fun loadData() {
         while (true){
             delay(3000)
             generateCurrencyList()
-            emit(currencyList.toList())
-            delay(3000)
+            _currencyListFlow.emit(currencyList.toList())
         }
     }
 
