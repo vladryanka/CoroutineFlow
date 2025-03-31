@@ -5,8 +5,10 @@ import androidx.appcompat.app.AppCompatActivity
 import com.smorzhok.coroutineflow.databinding.ActivityMainBinding
 import com.smorzhok.coroutineflow.lesson2.UsersActivity
 import com.smorzhok.coroutineflow.lesson4.CryptoActivity
+import com.smorzhok.coroutineflow.team_score.TeamScoreActivity
 
 class MainActivity : AppCompatActivity() {
+
     private val binding by lazy {
         ActivityMainBinding.inflate(layoutInflater)
     }
@@ -20,5 +22,9 @@ class MainActivity : AppCompatActivity() {
         binding.buttonCryptoActivity.setOnClickListener {
             startActivity(CryptoActivity.newIntent(this))
         }
+        binding.teamScoreActivity.setOnClickListener {
+            startActivity(TeamScoreActivity.newIntent(this))
+        }
     }
+
 }
