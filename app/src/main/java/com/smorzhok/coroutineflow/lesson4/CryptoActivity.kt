@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.smorzhok.coroutineflow.databinding.ActivityCryptoBinding
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class CryptoActivity : AppCompatActivity() {
@@ -40,7 +41,9 @@ class CryptoActivity : AppCompatActivity() {
     }
 
     private fun observeViewModel() {
+        viewModel.toString()
         lifecycleScope.launch {
+            delay(5000)
             repeatOnLifecycle(Lifecycle.State.RESUMED){
                 viewModel.state.collect {
                     when (it) {
@@ -50,6 +53,27 @@ class CryptoActivity : AppCompatActivity() {
                         }
                         is State.Loading -> {
                              binding.progressBarLoading.isVisible = true
+                            binding.refreshButton.isEnabled = false
+                        }
+                        is State.Content -> {
+                            binding.progressBarLoading.isVisible = false
+                            binding.refreshButton.isEnabled = true
+                            adapter.submitList(it.currencyList)
+                        }
+                    }
+                }
+            }
+        }
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.RESUMED){
+                viewModel.state2.collect {
+                    when (it) {
+                        is State.Initial -> {
+                            binding.progressBarLoading.isVisible = false
+                            binding.refreshButton.isEnabled = false
+                        }
+                        is State.Loading -> {
+                            binding.progressBarLoading.isVisible = true
                             binding.refreshButton.isEnabled = false
                         }
                         is State.Content -> {
